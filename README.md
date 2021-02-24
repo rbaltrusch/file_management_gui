@@ -12,7 +12,7 @@ This GUI showcases MATLAB's graphical user interface capabilities and combines t
 
 To get a copy of this repository, simply open up git bash in an empty folder and use the command:
 
-		$ git clone https://github.com/rbaltrusch/file_management_gui
+    $ git clone https://github.com/rbaltrusch/file_management_gui
 
 Once the repository clone is ready, navigate to the *src* folder in MATLAB or add it to the [MATLAB path](https://www.mathworks.com/help/matlab/ref/addpath.html) to run [gui.m](https://github.com/rbaltrusch/file_management_gui/blob/main/src/gui.m).
 
