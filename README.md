@@ -23,6 +23,10 @@ Detailed information on each GUI widget may be found in the gui documentation di
 help gui
 ```
 
+## MATLAB Version
+
+Written in MATLAB R2020b.
+
 ## License
 
 This repository is open-source software available under the [AGPL-3.0 License](https://github.com/rbaltrusch/file_management_gui/blob/main/LICENSE).
