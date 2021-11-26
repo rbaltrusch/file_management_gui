@@ -74,7 +74,7 @@ classdef Gui < handle
 
             obj.builder.create_edit('File Management GUI', 1, [1 5], 'FontWeight', 'bold', ...
                 'HorizontalAlignment', 'center', 'FontSize', 25, 'Editable', 'off', ...
-                'BackgroundColor', obj.builder.styler.colour);
+                'BackgroundColor', obj.builder.colour);
 
             %source folder
             obj.builder.create_text('From:', 2, 1);
@@ -89,7 +89,7 @@ classdef Gui < handle
             obj.builder.create_button('Filter', @obj.filter_files, [3 4], 5);
 
             %file table
-            obj.widgets('table') = obj.builder.create_widget(@guilib.Table, 5, [1 5]);
+            obj.widgets('table') = obj.builder.create_widget(@uitable, 5, [1 5]);
 
             %destination folder
             obj.widgets('to') = obj.builder.create_text('To:', 6, 1);
