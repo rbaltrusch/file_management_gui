@@ -192,9 +192,8 @@ classdef Gui < handle
             %Callback for filter button
             try
                 folder = obj.widgets('source_folder').Value;
-                extension = obj.widgets('extension').Value;
                 filter = obj.widgets('filter').Value;
-                files = lib.get_all_files_with_extension(folder, extension, filter);
+                files = lib.filter_files(folder, filter);
             catch
                 uiwait(warndlg('EB2: An error occured while filtering files'));
             end
@@ -211,33 +210,25 @@ classdef Gui < handle
             %Callback for run_button to run function selected in function select dropdown.
             try
                 files_ = obj.filter_files();
-                dest_folder_ = obj.widgets('dest_folder').Value;
-                rename_pattern = obj.determine_rename_pattern();
-
-                flags.rename = obj.widgets('rename_filtered').Value;
-                flags.rename_on_conflict = obj.widgets('rename_duplicate').Value;
-                flags.move = strcmp('Move files', obj.widgets('function').Value);
-                flags.delete = strcmp('Delete files', obj.widgets('function').Value);
-
-                lib.copy_files_to_folder(files_, dest_folder_, flags, rename_pattern);
+                if strcmp('Delete files', obj.widgets('function').Value)
+                    lib.delete_files(files);
+                else
+                    prefix = '';
+                    suffix = '';
+                    mode = lower(regexp(obj.widgets('function').Value, '\w+?(?=\s)', 'match', 'once'));
+                    
+                    lib.copy_files_to_folder(files_, ...
+                        'folder', obj.widgets('dest_folder').Value, ...
+                        'find', obj.widgets('find').Value, ...
+                        'replace', obj.widgets('replace').Value, ...
+                        'prefix', prefix, ...
+                        'suffix', suffix, ...
+                        'regexp', false, ...
+                        'mode', mode);
+                end
                 uiwait(msgbox('Successfully ran the selected function'));
             catch
                 uiwait(warndlg('EB3: An error occured while running the selected function'));
-            end
-        end
-        
-        function rename_pattern = determine_rename_pattern(obj)
-            switch(obj.widgets('rename_function').Value)
-                case 'Add Prefix'
-                    prefix = obj.widgets('find').Value;
-                    rename_pattern = ['prefix:' prefix];
-                case 'Add Suffix'
-                    suffix = obj.widgets('find').Value;
-                    rename_pattern = ['suffix:' suffix];
-                case 'Regex Find & Replace'
-                    find = obj.widgets('find').Value;
-                    replace = obj.widgets('replace').Value;
-                    rename_pattern = ['regexp:' find ':' replace];
             end
         end
     end
