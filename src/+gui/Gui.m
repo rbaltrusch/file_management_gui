@@ -69,7 +69,7 @@ classdef Gui < handle
         function build(obj)
             obj.fig = uifigure('Name', 'File Management GUI', 'Position', [500 100 505 490]);
             obj.builder.root = uigridlayout(obj.fig, ...
-                'RowHeight', {40, 20, 20, 20, 150, 20, 20, 20, 20, 50}, ...
+                'RowHeight', {40, 20, 20, 150, 20, 20, 20, 20, 50}, ...
                 'ColumnWidth', {45, 100, 100, 100, 100});
 
             obj.builder.create_edit('File Management GUI', 1, [1 5], 'FontWeight', 'bold', ...
@@ -81,36 +81,34 @@ classdef Gui < handle
             obj.widgets('source_folder') = obj.builder.create_edit(pwd, 2, [2 4]);
             obj.builder.create_button('Select folder', @obj.select_source_folder, 2, 5);
             
-            %extension and filter
-            obj.builder.create_text('Extension', 3, [1 2]);
-            obj.widgets('extension') = obj.builder.create_edit('.*', 3, [3 4]);
-            obj.builder.create_text('Filter expression', 4, [1 2]);
-            obj.widgets('filter') = obj.builder.create_edit('*', 4, [3 4]);
-            obj.builder.create_button('Filter', @obj.filter_files, [3 4], 5);
+            %filter
+            obj.builder.create_text('Filter expression', 3, [1 2]);
+            obj.widgets('filter') = obj.builder.create_edit('*', 3, [3 4]);
+            obj.builder.create_button('Filter', @obj.filter_files, 3, 5);
 
             %file table
-            obj.widgets('table') = obj.builder.create_widget(@uitable, 5, [1 5]);
+            obj.widgets('table') = obj.builder.create_widget(@uitable, 4, [1 5]);
 
             %destination folder
-            obj.widgets('to') = obj.builder.create_text('To:', 6, 1);
-            obj.widgets('dest_folder') = obj.builder.create_edit(pwd, 6, [2 4], 'ValueChangedFcn', @obj.dest_folder_changed);
-            obj.widgets('dest_select') = obj.builder.create_button('Select folder', @select_destination_folder, 6, 5);
+            obj.widgets('to') = obj.builder.create_text('To:', 5, 1);
+            obj.widgets('dest_folder') = obj.builder.create_edit(pwd, 5, [2 4], 'ValueChangedFcn', @obj.dest_folder_changed);
+            obj.widgets('dest_select') = obj.builder.create_button('Select folder', @select_destination_folder, 5, 5);
 
             %checkboxes
-            obj.widgets('rename_duplicate') = obj.builder.create_checkbox('Rename duplicate files', true, 7, [3 4]);
+            obj.widgets('rename_duplicate') = obj.builder.create_checkbox('Rename duplicate files', true, 6, [3 4]);
             obj.widgets('rename_filtered') = obj.builder.create_checkbox('Rename all filtered files', ...
-                false, 7, [1, 2], 'ValueChangedFcn', @obj.rename_filtered_checkbox_changed);
+                false, 6, [1, 2], 'ValueChangedFcn', @obj.rename_filtered_checkbox_changed);
 
             %find and replace
             options = {'Regex Find & Replace', 'Add Prefix', 'Add Suffix'};
-            obj.widgets('rename_function') = obj.builder.create_dropdown(options, [8 9], [1 2]);
-            obj.widgets('find_text') = obj.builder.create_text('Find', 8, 3);
-            obj.widgets('find') = obj.builder.create_edit('', 8, 4);
-            obj.widgets('replace_text') = obj.builder.create_text('Replace', 9, 3);
-            obj.widgets('replace') = obj.builder.create_edit('', 9, 4);
+            obj.widgets('rename_function') = obj.builder.create_dropdown(options, [7 8], [1 2]);
+            obj.widgets('find_text') = obj.builder.create_text('Find', 7, 3);
+            obj.widgets('find') = obj.builder.create_edit('', 7, 4);
+            obj.widgets('replace_text') = obj.builder.create_text('Replace', 8, 3);
+            obj.widgets('replace') = obj.builder.create_edit('', 8, 4);
             obj.rename_filtered_checkbox_changed(obj.widgets('rename_filtered'));
 
-            obj.builder.create_button('Run', @obj.run_selected_function, [7 10], 5);
+            obj.builder.create_button('Run', @obj.run_selected_function, [6 10], 5);
             
             %function dropdown
             options = {'Copy files','Move files','Delete files'};
