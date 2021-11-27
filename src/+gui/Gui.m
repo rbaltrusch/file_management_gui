@@ -193,7 +193,7 @@ classdef Gui < handle
             try
                 folder = obj.widgets('source_folder').Value;
                 filter = obj.widgets('filter').Value;
-                files = lib.filter_files(folder, filter);
+                files = lib.filter_files(folder, 'filter', filter);
             catch
                 uiwait(warndlg('EB2: An error occured while filtering files'));
             end
