@@ -91,14 +91,14 @@ classdef Gui < handle
                 'ValueChangedFcn', @obj.function_dropdown_changed, 'FontSize', 13);
 
             %find, replace, prefix, suffix
-            obj.builder.create_text('Rename at destination', 7, [1 4]);
-            obj.builder.create_text('Find:', 8, [1 2]);
+            obj.widgets('rename_title') = obj.builder.create_text('Rename at destination', 7, [1 4]);
+            obj.widgets('find_text') = obj.builder.create_text('Find:', 8, [1 2]);
             obj.widgets('find') = obj.builder.create_edit('', 8, [3 4]);
-            obj.builder.create_text('Replace:', 9, [1 2]);
+            obj.widgets('replace_text') = obj.builder.create_text('Replace:', 9, [1 2]);
             obj.widgets('replace') = obj.builder.create_edit('', 9, [3 4]);
-            obj.builder.create_text('Prefix:', 10, 3);
+            obj.widgets('prefix_text') = obj.builder.create_text('Prefix:', 10, 3);
             obj.widgets('prefix') = obj.builder.create_edit('', 10, 4);
-            obj.builder.create_text('Suffix:', 11, 3);
+            obj.widgets('suffix_text') = obj.builder.create_text('Suffix:', 11, 3);
             obj.widgets('suffix') = obj.builder.create_edit('', 11, 4);
 
             %checkboxes
@@ -126,7 +126,9 @@ classdef Gui < handle
         
         function function_dropdown_changed(obj, widget, ~)
             %Callback for value change of functions dropdown
-            components = {'to', 'dest_folder', 'dest_select'};
+            components = {'to', 'dest_folder', 'dest_select', 'rename_title', 'find_text', ...
+                'find', 'replace_text', 'replace', 'prefix_text', 'prefix', 'suffix_text', ...
+                'suffix', 'regexp', 'rename_duplicate'};
             delete_flag = strcmp(widget.Value, 'Delete files');
             obj.set_enable(~delete_flag, components);
 
