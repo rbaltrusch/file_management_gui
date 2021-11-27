@@ -99,9 +99,9 @@ classdef Gui < handle
             obj.widgets('rename_duplicate') = obj.builder.create_checkbox('Rename duplicate files', true, 6, [3 4]);
 
             %find and replace
-            obj.widgets('find_text') = obj.builder.create_text('Find', 7, 3);
+            obj.builder.create_text('Find:', 7, 3);
             obj.widgets('find') = obj.builder.create_edit('', 7, 4);
-            obj.widgets('replace_text') = obj.builder.create_text('Replace', 8, 3);
+            obj.builder.create_text('Replace:', 8, 3);
             obj.widgets('replace') = obj.builder.create_edit('', 8, 4);
 
             obj.builder.create_button('Run', @obj.run_selected_function, [6 10], 5);
