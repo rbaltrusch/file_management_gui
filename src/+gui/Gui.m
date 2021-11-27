@@ -1,31 +1,17 @@
 %This GUI combines three common file management tasks:
 %
-%   1) Copy all selected files from a specified directory* to a new, specified directory
-%   2) Move all selected files from a specified directory* to a new, specified directory
-%   3) Delete all selected files from a specified directory* to the Recycle bin.
-%
-%       * including subdirectories
-%
-%The files to be used in those tasks can be selected by specifying two
-%filters: one for the file extension, one for the file name (labelled filter).
-%Standard Windows wildcard characters (* and ?) may be used. Note that the
-%file name filter does not work if no file extension is specified and it
-%defaults to .*
-%
-%The directories specified (both source and destination) can be specified
-%either by specifying the path in the text boxes provided (From = source,
-%To = destination) or by selecting the relevant path using the select path
-%button.
-%
-%The filter button searches in the folder specified and all of its
-%subdirectories for the files that match the specified file name filter and
-%file extension filter. The matched files then get displayed in the table
-%in the middle of the GUI. Using the filter button is not required, but
-%desireable to test whether the filters specified match the expected files.
+%   1) Copy all selected files from a specified directory to a new, specified directory
+%   2) Move all selected files from a specified directory to a new, specified directory
+%   3) Delete all selected files from a specified directory and move them to the Recycle bin.
 %
 %
-%The GUI also provides file renaming functionality upon moving, copying or
-%deleting the file to the new folder. This can be done in three ways:
+%The files to be used in those tasks can be selected by specifying a
+%globbing filter, defaulting to * (matches everything) and filtered using
+%the filter button. Recursive search (i.e. including subdirectories) can be
+%toggled using the recursive checkbox. All files found are shown in the
+%file table.
+%
+%The GUI provides renaming functionality for moved or copied files:
 %
 %   1) Add a prefix to all selected files (e.g. if prefix = hello, then a
 %   selected file called world.txt would be renamed helloworld.txt once
@@ -35,22 +21,22 @@
 %   selected file called hello.txt would be renamed helloworld.txt once
 %   copied/moved to the new folder.
 %
-%   3) Find and replace a substring using regexp expressions. For example,
-%   if the find expression is "^h" and the replace expression is "y", all
-%   files starting with "h" would have that "h" changed to "y", e.g.
-%   help.txt --> yelp.txt
+%   3) Find and replace a substring. For example, if the find expression is
+%   "h" and the replace expression is "g", a file called help.txt would be
+%   renamed to gelp.txt. Regexp matching can be used for find and replace
+%   by enabling the regexp checkbox.
+%
+%If the "rename duplicate files" checkbox is enabled, files with matching
+%names will be renamed in the destination folder by adding a numebr suffix.
+%It is recommended to keep it enabled, otherwise data may be overwritten in
+%the destination folder.
 %
 %
-%The rename duplicate files checkbox enables or disables the duplicate file
-%renaming functionality. If enabled, files that are moved to the new
-%folder that have the same name as a file that already exist in that folder
-%would be renamed by adding a number suffix, e.g. help.txt --> help1.txt.
-%If the checkbox is unchecked, then files with the same name are
-%overwritten, which may be undesirable if the files with the same name
-%contain different data.
+%The source and destination directories can be specified either using their
+%respective buttons or text boxes.
 %
 %Author: Richard Baltrusch
-%Date: 25/11/2021
+%Date: 27/11/2021
 
 classdef Gui < handle
     properties(Access = private)
