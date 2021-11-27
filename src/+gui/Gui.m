@@ -96,6 +96,7 @@ classdef Gui < handle
             obj.widgets('dest_select') = obj.builder.create_button('Select folder', @select_destination_folder, 5, 5);
 
             %checkboxes
+            obj.widgets('regexp') = obj.builder.create_checkbox('Use regexp', false, 6, [1, 2]);
             obj.widgets('rename_duplicate') = obj.builder.create_checkbox('Rename duplicate files', true, 6, [3 4]);
 
             %find, replace, prefix, suffix
@@ -214,7 +215,7 @@ classdef Gui < handle
                         'replace', obj.widgets('replace').Value, ...
                         'prefix', obj.widgets('prefix').Value, ...
                         'suffix', obj.widgets('suffix').Value, ...
-                        'regexp', false, ...
+                        'regexp', obj.widgets('regexp').Value, ...
                         'mode', mode);
                 end
                 uiwait(msgbox('Successfully ran the selected function'));
