@@ -14,7 +14,10 @@ To get a copy of this repository, simply open up git bash in an empty folder and
 
     $ git clone https://github.com/rbaltrusch/file_management_gui
 
-Once the repository clone is ready, navigate to the *src* folder in MATLAB or add it to the [MATLAB path](https://www.mathworks.com/help/matlab/ref/addpath.html) to run [gui.m](https://github.com/rbaltrusch/file_management_gui/blob/main/src/gui.m).
+Open and run [gui.m](https://github.com/rbaltrusch/file_management_gui/blob/main/src/gui.m) in MATLAB or directly on the command line:
+
+    cd src
+    matlab -r run_gui
 
 ## More information
 
