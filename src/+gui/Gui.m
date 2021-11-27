@@ -82,8 +82,9 @@ classdef Gui < handle
             obj.builder.create_button('Select folder', @obj.select_source_folder, 2, 5);
             
             %filter
-            obj.builder.create_text('Filter expression', 3, [1 2]);
-            obj.widgets('filter') = obj.builder.create_edit('*', 3, [3 4]);
+            obj.builder.create_text('Filter files:', 3, [1 2]);
+            obj.widgets('filter') = obj.builder.create_edit('*', 3, 3);
+            obj.widgets('recursive') = obj.builder.create_checkbox('Recursive', true, 3, 4);
             obj.builder.create_button('Filter', @obj.filter_files, 3, 5);
 
             %file table
@@ -181,8 +182,9 @@ classdef Gui < handle
             %Callback for filter button
             try
                 folder = obj.widgets('source_folder').Value;
-                filter = obj.widgets('filter').Value;
-                files = lib.filter_files(folder, 'filter', filter);
+                files = lib.filter_files(folder, ...
+                    'filter', obj.widgets('filter').Value, ...
+                    'recursive', obj.widgets('recursive').Value);
             catch
                 uiwait(warndlg('EB2: An error occured while filtering files'));
             end
