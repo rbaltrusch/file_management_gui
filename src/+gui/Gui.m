@@ -112,7 +112,7 @@ classdef Gui < handle
             obj.builder.create_button('Run', @obj.run_selected_function, [6 10], 5);
             
             %function dropdown
-            options = {'Copy files','Move files','Delete files'};
+            options = {'Copy files', 'Move files', 'Delete files'};
             obj.widgets('function') = obj.builder.create_dropdown(options, 10, [1 4], ...
                 'ValueChangedFcn', @obj.function_dropdown_changed);
             
