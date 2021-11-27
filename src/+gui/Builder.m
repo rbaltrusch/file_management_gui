@@ -1,3 +1,11 @@
+%Handles creation of widgets (e.g. uibutton) to be added to an uifigure or
+%uigridlayout root object.
+%
+%Expects an RGB colour 3x1 matrix normalised between 0 and 1 as input arg.
+%
+%Author: Richard Baltrusch
+%Date: 27/11/2021
+
 classdef Builder < handle
     properties
         root
