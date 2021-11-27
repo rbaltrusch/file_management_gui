@@ -4,7 +4,7 @@ This GUI showcases MATLAB's graphical user interface capabilities and combines t
 
 1) Copy all selected files from a specified directory to a new, specified directory
 1) Move all selected files from a specified directory to a new, specified directory
-1) Delete all selected files from a specified directory to the Recycle bin.
+1) Delete all selected files from a specified directory and move them to the Recycle bin.
 
 ![Screenshot of the graphical user interface](https://github.com/rbaltrusch/file_management_gui/blob/main/media/screenshot.png?raw=true)
 
