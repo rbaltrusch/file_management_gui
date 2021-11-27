@@ -67,11 +67,12 @@ classdef Gui < handle
         end
 
         function build(obj)
-            obj.fig = uifigure('Name', 'File Management GUI', 'Position', [500 100 505 490]);
+            obj.fig = uifigure('Name', 'File Management GUI', 'Position', [500 100 505 520]);
             obj.builder.root = uigridlayout(obj.fig, ...
-                'RowHeight', {40, 20, 20, 150, 20, 20, 20, 20, 50}, ...
+                'RowHeight', {40, 20, 20, 150, 20, 50, 20, 20, 20, 20, 20}, ...
                 'ColumnWidth', {45, 100, 100, 100, 100});
 
+            %title text
             obj.builder.create_edit('File Management GUI', 1, [1 5], 'FontWeight', 'bold', ...
                 'HorizontalAlignment', 'center', 'FontSize', 25, 'Editable', 'off', ...
                 'BackgroundColor', obj.builder.colour);
@@ -95,29 +96,30 @@ classdef Gui < handle
             obj.widgets('dest_folder') = obj.builder.create_edit(pwd, 5, [2 4], 'ValueChangedFcn', @obj.dest_folder_changed);
             obj.widgets('dest_select') = obj.builder.create_button('Select folder', @select_destination_folder, 5, 5);
 
-            %checkboxes
-            obj.widgets('regexp') = obj.builder.create_checkbox('Use regexp', false, 6, [1, 2]);
-            obj.widgets('rename_duplicate') = obj.builder.create_checkbox('Rename duplicate files', true, 6, [3 4]);
-
-            %find, replace, prefix, suffix
-            obj.builder.create_text('Prefix:', 7, 1);
-            obj.widgets('prefix') = obj.builder.create_edit('', 7, 2);
-            obj.builder.create_text('Suffix:', 8, 1);
-            obj.widgets('suffix') = obj.builder.create_edit('', 8, 2);
-            obj.builder.create_text('Find:', 7, 3);
-            obj.widgets('find') = obj.builder.create_edit('', 7, 4);
-            obj.builder.create_text('Replace:', 8, 3);
-            obj.widgets('replace') = obj.builder.create_edit('', 8, 4);
-
-            obj.builder.create_button('Run', @obj.run_selected_function, [6 10], 5);
-            
             %function dropdown
             options = {'Copy files', 'Move files', 'Delete files'};
-            obj.widgets('function') = obj.builder.create_dropdown(options, 10, [1 4], ...
-                'ValueChangedFcn', @obj.function_dropdown_changed);
+            obj.widgets('function') = obj.builder.create_dropdown(options, 6, [1 4], ...
+                'ValueChangedFcn', @obj.function_dropdown_changed, 'FontSize', 13);
+
+            %find, replace, prefix, suffix
+            obj.builder.create_text('Rename at destination', 7, [1 4]);
+            obj.builder.create_text('Find:', 8, [1 2]);
+            obj.widgets('find') = obj.builder.create_edit('', 8, [3 4]);
+            obj.builder.create_text('Replace:', 9, [1 2]);
+            obj.widgets('replace') = obj.builder.create_edit('', 9, [3 4]);
+            obj.builder.create_text('Prefix:', 10, 3);
+            obj.widgets('prefix') = obj.builder.create_edit('', 10, 4);
+            obj.builder.create_text('Suffix:', 11, 3);
+            obj.widgets('suffix') = obj.builder.create_edit('', 11, 4);
+
+            %checkboxes
+            obj.widgets('regexp') = obj.builder.create_checkbox('Use regexp', false, 10, [1 2]);
+            obj.widgets('rename_duplicate') = obj.builder.create_checkbox('Rename duplicate files', true, 11, [1 2]);
+
+            obj.builder.create_button('Run', @obj.run_selected_function, [6 11], 5, 'FontSize', 19, 'FontWeight', 'bold');
             
             uibutton(obj.fig, 'Text', '?', 'ButtonPushedFcn', @obj.display_help_fig, ...
-                'Position', [475 460 20 20], 'BackgroundColor', [80 80 255] / 256);
+                'Position', [475 490 20 20], 'BackgroundColor', [80 80 255] / 256);
         end
     end
 
