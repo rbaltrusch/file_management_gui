@@ -46,66 +46,63 @@ end
 function test_cell(test_case)
     import matlab.unittest.constraints.IsTrue
     files = lib.filter_files(test_case.TestData.test_folder);
-    condition = iscell(files);
-    verifyThat(test_case, condition, IsTrue);
+    verifyThat(test_case, iscell(files), IsTrue);
 end
 
 function test_current_folder(test_case)
-    import matlab.unittest.constraints.IsTrue
+    import matlab.unittest.constraints.IsEqualTo
     cd(test_case.TestData.test_folder);
     files = lib.filter_files('.');
-    condition = length(files) == test_case.TestData.test_folder_total_length;
-    verifyThat(test_case, condition, IsTrue);
+    constraint = IsEqualTo(test_case.TestData.test_folder_total_length);
+    verifyThat(test_case, length(files), constraint);
 end
 
 function test_parent_folder(test_case)
-    import matlab.unittest.constraints.IsTrue
+    import matlab.unittest.constraints.IsEqualTo
     cd(test_case.TestData.test_subfolder);
     files = lib.filter_files('..');
-    condition = length(files) == test_case.TestData.test_folder_total_length;
-    verifyThat(test_case, condition, IsTrue);
+    constraint = IsEqualTo(test_case.TestData.test_folder_total_length);
+    verifyThat(test_case, length(files), constraint);
 end
 
 function test_absolute_folder(test_case)
-    import matlab.unittest.constraints.IsTrue
+    import matlab.unittest.constraints.IsEqualTo
     folder = fullfile(fileparts(mfilename('fullpath')), test_case.TestData.test_folder);
     files = lib.filter_files(folder);
-    condition = length(files) == test_case.TestData.test_folder_total_length;
-    verifyThat(test_case, condition, IsTrue);
+    constraint = IsEqualTo(test_case.TestData.test_folder_total_length);
+    verifyThat(test_case, length(files), constraint);
 end
 
 function test_filter(test_case)
-    import matlab.unittest.constraints.IsTrue
+    import matlab.unittest.constraints.IsEqualTo
     files = lib.filter_files(test_case.TestData.test_folder, 'filter', '*test2*');
-    condition = length(files) == 2;
-    verifyThat(test_case, condition, IsTrue);
+    verifyThat(test_case, length(files), IsEqualTo(2));
 end
 
 function test_non_existing_folder(test_case)
-    import matlab.unittest.constraints.IsTrue
+    import matlab.unittest.constraints.IsEmpty
     files = lib.filter_files(test_case.TestData.non_existing_folder);
-    condition = iscell(files) && isempty(files);
-    verifyThat(test_case, condition, IsTrue);
+    verifyThat(test_case, files, IsEmpty);
 end
 
 function test_duplicate_call(test_case)
-    import matlab.unittest.constraints.IsTrue
+    import matlab.unittest.constraints.IsEqualTo
     lib.filter_files(test_case.TestData.test_folder);
     files = lib.filter_files(test_case.TestData.test_folder);
-    condition = length(files) == test_case.TestData.test_folder_total_length;
-    verifyThat(test_case, condition, IsTrue);
+    constraint = IsEqualTo(test_case.TestData.test_folder_total_length);
+    verifyThat(test_case, length(files), constraint);
 end
 
 function test_recursive_search_on(test_case)
-    import matlab.unittest.constraints.IsTrue
+    import matlab.unittest.constraints.IsEqualTo
     files = lib.filter_files(test_case.TestData.test_folder, 'recursive', true);
-    condition = length(files) == test_case.TestData.test_folder_total_length;
-    verifyThat(test_case, condition, IsTrue);
+    constraint = IsEqualTo(test_case.TestData.test_folder_total_length);
+    verifyThat(test_case, length(files), constraint);
 end
 
 function test_recursive_search_off(test_case)
-    import matlab.unittest.constraints.IsTrue
+    import matlab.unittest.constraints.IsEqualTo
     files = lib.filter_files(test_case.TestData.test_folder, 'recursive', false);
-    condition = length(files) == test_case.TestData.test_folder_length;
-    verifyThat(test_case, condition, IsTrue);
+    constraint = IsEqualTo(test_case.TestData.test_folder_length);
+    verifyThat(test_case, length(files), constraint);
 end

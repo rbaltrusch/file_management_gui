@@ -44,27 +44,25 @@ function teardown(test_case)
 end
 
 function test_folder_exists(test_case)
-    import matlab.unittest.constraints.IsTrue
+    import matlab.unittest.constraints.IsFolder
     files = lib.filter_files(test_case.TestData.test_folder);
     lib.delete_files(files);
-    condition = isfolder(test_case.TestData.test_folder);
-    verifyThat(test_case, condition, IsTrue);
+    verifyThat(test_case, test_case.TestData.test_folder, IsFolder);
 end
 
 function test_files_deleted(test_case)
-    import matlab.unittest.constraints.IsTrue
+    import matlab.unittest.constraints.IsEmpty
     files = lib.filter_files(test_case.TestData.test_folder, 'recursive', true);
     lib.delete_files(files);
-    condition = isempty(files(isfile(files)));
-    verifyThat(test_case, condition, IsTrue);
+    verifyThat(test_case, files(isfile(files)), IsEmpty);
 end
 
 function test_not_files_deleted(test_case)
-    import matlab.unittest.constraints.IsTrue
+    import matlab.unittest.constraints.IsEqualTo
     files = lib.filter_files(test_case.TestData.test_folder, 'recursive', false);
     lib.delete_files(files);
 
     files = lib.filter_files(test_case.TestData.test_folder, 'recursive', true);
-    condition = length(files) == test_case.TestData.test_subfolder_length;
-    verifyThat(test_case, condition, IsTrue);
+    constraint = IsEqualTo(test_case.TestData.test_subfolder_length);
+    verifyThat(test_case, length(files), constraint);
 end
