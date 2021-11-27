@@ -96,8 +96,6 @@ classdef Gui < handle
 
             %checkboxes
             obj.widgets('rename_duplicate') = obj.builder.create_checkbox('Rename duplicate files', true, 6, [3 4]);
-            obj.widgets('rename_filtered') = obj.builder.create_checkbox('Rename all filtered files', ...
-                false, 6, [1, 2], 'ValueChangedFcn', @obj.rename_filtered_checkbox_changed);
 
             %find and replace
             options = {'Regex Find & Replace', 'Add Prefix', 'Add Suffix'};
@@ -106,7 +104,6 @@ classdef Gui < handle
             obj.widgets('find') = obj.builder.create_edit('', 7, 4);
             obj.widgets('replace_text') = obj.builder.create_text('Replace', 8, 3);
             obj.widgets('replace') = obj.builder.create_edit('', 8, 4);
-            obj.rename_filtered_checkbox_changed(obj.widgets('rename_filtered'));
 
             obj.builder.create_button('Run', @obj.run_selected_function, [6 10], 5);
             
@@ -130,12 +127,6 @@ classdef Gui < handle
             catch
                 uiwait(warndlg('EI1: An internal error occured while setting gui enables'));
             end
-        end
-
-        function rename_filtered_checkbox_changed(obj, widget, ~)
-            %Callback for value change of rename_filtered checkbox
-            components = {'rename_function', 'find_text', 'find', 'replace_text', 'replace'};
-            obj.set_enable(widget.Value, components);
         end
         
         function function_dropdown_changed(obj, widget, ~)
