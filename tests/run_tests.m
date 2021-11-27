@@ -23,7 +23,7 @@ disp(results);
 open(fullfile(report_folder, 'index.html'));
 
 %% Smoke tests
-report_folder = fullfile('reports', 'unit');
+report_folder = fullfile('reports', 'smoke');
 smoke_test_folder = fullfile(fileparts(mfilename('fullpath')), 'smoke');
 
 runner = testrunner;
@@ -31,5 +31,3 @@ runner.addPlugin(TestReportPlugin.producingHTML(report_folder));
 runner.addPlugin(CodeCoveragePlugin.forFolder(fullfile(src_folder, '+gui')));
 results = runner.run(testsuite(smoke_test_folder));
 disp(results);
-
-open(fullfile(report_folder, 'index.html'));
