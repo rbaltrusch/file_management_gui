@@ -99,8 +99,6 @@ classdef Gui < handle
             obj.widgets('rename_duplicate') = obj.builder.create_checkbox('Rename duplicate files', true, 6, [3 4]);
 
             %find and replace
-            options = {'Regex Find & Replace', 'Add Prefix', 'Add Suffix'};
-            obj.widgets('rename_function') = obj.builder.create_dropdown(options, [7 8], [1 2]);
             obj.widgets('find_text') = obj.builder.create_text('Find', 7, 3);
             obj.widgets('find') = obj.builder.create_edit('', 7, 4);
             obj.widgets('replace_text') = obj.builder.create_text('Replace', 8, 3);
