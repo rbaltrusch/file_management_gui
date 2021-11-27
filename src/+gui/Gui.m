@@ -98,7 +98,11 @@ classdef Gui < handle
             %checkboxes
             obj.widgets('rename_duplicate') = obj.builder.create_checkbox('Rename duplicate files', true, 6, [3 4]);
 
-            %find and replace
+            %find, replace, prefix, suffix
+            obj.builder.create_text('Prefix:', 7, 1);
+            obj.widgets('prefix') = obj.builder.create_edit('', 7, 2);
+            obj.builder.create_text('Suffix:', 8, 1);
+            obj.widgets('suffix') = obj.builder.create_edit('', 8, 2);
             obj.builder.create_text('Find:', 7, 3);
             obj.widgets('find') = obj.builder.create_edit('', 7, 4);
             obj.builder.create_text('Replace:', 8, 3);
@@ -202,16 +206,14 @@ classdef Gui < handle
                 if strcmp('Delete files', obj.widgets('function').Value)
                     lib.delete_files(files);
                 else
-                    prefix = '';
-                    suffix = '';
                     mode = lower(regexp(obj.widgets('function').Value, '\w+?(?=\s)', 'match', 'once'));
                     
                     lib.copy_files(files_, ...
                         'folder', obj.widgets('dest_folder').Value, ...
                         'find', obj.widgets('find').Value, ...
                         'replace', obj.widgets('replace').Value, ...
-                        'prefix', prefix, ...
-                        'suffix', suffix, ...
+                        'prefix', obj.widgets('prefix').Value, ...
+                        'suffix', obj.widgets('suffix').Value, ...
                         'regexp', false, ...
                         'mode', mode);
                 end
