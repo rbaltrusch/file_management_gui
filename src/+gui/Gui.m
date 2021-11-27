@@ -39,10 +39,13 @@
 %Date: 27/11/2021
 
 classdef Gui < handle
-    properties(Access = private)
+    properties(Access = public)
         builder
         widgets containers.Map
         fig matlab.ui.Figure
+    end
+
+    properties(Access = private)
         dest_folder = pwd
     end
 
