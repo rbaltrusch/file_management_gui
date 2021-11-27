@@ -3,7 +3,7 @@
 %Author: Richard Baltrusch
 %Date: 26/11/2021
 
-function copy_files_to_folder(files, varargin)
+function copy_files(files, varargin)
     args = parse_inputs(files, varargin{:});
 
     if ~isempty(args.folder) && ~isfolder(args.folder)
