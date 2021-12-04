@@ -47,11 +47,18 @@ classdef Gui < handle
 
     properties(Access = private)
         dest_folder = pwd
+        confirm
     end
 
     methods(Access = public)
-        function obj = Gui(builder)
-            obj.builder = builder;
+        function obj = Gui(varargin)
+            parser = inputParser;
+            addRequired(parser, 'builder', @(~) true);
+            addParameter(parser, 'confirm', true, @islogical)
+            parser.parse(varargin{:});
+
+            obj.builder = parser.Results.builder;
+            obj.confirm = parser.Results.confirm;
             obj.widgets = containers.Map;
         end
 
@@ -121,7 +128,7 @@ classdef Gui < handle
                     component.Enable = value;
                 end
             catch
-                uiwait(warndlg('EI1: An internal error occured while setting gui enables'));
+                obj.emit_warning('EI1: An internal error occured while setting gui enables');
             end
         end
         
@@ -171,7 +178,7 @@ classdef Gui < handle
                 folder = uigetdir();
                 figure(obj.fig) %avoid staying in background after uigetdir
             catch
-                uiwait(warndlg('EB1: An error occured while selecting the folder'));
+                obj.emit_warning('EB1: An error occured while selecting the folder');
             end
         end
 
@@ -183,14 +190,14 @@ classdef Gui < handle
                     'filter', obj.widgets('filter').Value, ...
                     'recursive', obj.widgets('recursive').Value);
             catch
-                uiwait(warndlg('EB2: An error occured while filtering files'));
+                obj.emit_warning('EB2: An error occured while filtering files');
             end
 
             try
                 widget = obj.widgets('table');
                 widget.Data = files;
             catch
-                uiwait(warndlg('EB21: An error occured while adding filtered files to table!'));
+                obj.emit_warning('EB21: An error occured while adding filtered files to table!');
             end
         end
 
@@ -212,23 +219,37 @@ classdef Gui < handle
                         'regexp', obj.widgets('regexp').Value, ...
                         'mode', mode);
                 end
-                uiwait(msgbox('Successfully ran the selected function'));
-            catch
-                uiwait(warndlg('EB3: An error occured while running the selected function'));
+                obj.emit_info('Successfully ran the selected function');
+            catch ME
+                obj.emit_warning('EB3: An error occured while running the selected function');
             end
         end
-    end
 
-    methods(Access = private, Static)
-        function display_help_fig(varargin)
+        function display_help_fig(obj, varargin)
             %Callback for help button
             try
                 text = help(mfilename('fullpath'));
-                fig = uifigure('Name', 'Help', 'Position', [450 100 450 500]);
-                uitextarea(fig, 'Value', text, 'Position', [0 0 450 500], ...
+                fig_ = uifigure('Name', 'Help', 'Position', [450 100 450 500]);
+                uitextarea(fig_, 'Value', text, 'Position', [0 0 450 500], ...
                     'BackgroundColor', [200 200 255]/256);
             catch
-                uiwait(warndlg('An error occured while displaying the help figure'));
+                obj.emit_warning('An error occured while displaying the help figure');
+            end
+        end
+
+        function emit_warning(obj, message)
+            if obj.confirm
+                uiwait(warndlg(message));
+            else
+                warning(message);
+            end
+        end
+
+        function emit_info(obj, message)
+            if obj.confirm
+                uiwait(msgbox(message));
+            else
+                disp(message);
             end
         end
     end
