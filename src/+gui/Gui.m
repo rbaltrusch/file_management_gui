@@ -75,7 +75,7 @@ classdef Gui < handle
             obj.builder.create_text('Filter files:', 3, [1 2]);
             obj.widgets('filter') = obj.builder.create_edit('*', 3, 3);
             obj.widgets('recursive') = obj.builder.create_checkbox('Recursive', true, 3, 4);
-            obj.builder.create_button('Filter', @obj.filter_files, 3, 5);
+            obj.widgets('filter_btn') = obj.builder.create_button('Filter', @obj.filter_files, 3, 5);
 
             %file table
             obj.widgets('table') = obj.builder.create_widget(@uitable, 4, [1 5]);
@@ -105,7 +105,8 @@ classdef Gui < handle
             obj.widgets('regexp') = obj.builder.create_checkbox('Use regexp', false, 10, [1 2]);
             obj.widgets('rename_duplicate') = obj.builder.create_checkbox('Rename duplicate files', true, 11, [1 2]);
 
-            obj.builder.create_button('Run', @obj.run_selected_function, [6 11], 5, 'FontSize', 19, 'FontWeight', 'bold');
+            obj.widgets('run_btn') = obj.builder.create_button('Run', @obj.run_selected_function, ...
+                [6 11], 5, 'FontSize', 19, 'FontWeight', 'bold');
             
             uibutton(obj.fig, 'Text', '?', 'ButtonPushedFcn', @obj.display_help_fig, ...
                 'Position', [475 490 20 20], 'BackgroundColor', [80 80 255] / 256);
