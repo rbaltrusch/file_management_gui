@@ -206,7 +206,7 @@ classdef Gui < handle
             try
                 files_ = obj.filter_files();
                 if strcmp('Delete files', obj.widgets('function').Value)
-                    lib.delete_files(files);
+                    lib.delete_files(files_);
                 else
                     mode = lower(regexp(obj.widgets('function').Value, '\w+?(?=\s)', 'match', 'once'));
                     
