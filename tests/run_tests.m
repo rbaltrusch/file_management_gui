@@ -19,7 +19,7 @@ runner = testrunner;
 plugin = TestReportPlugin.producingHTML(report_folder, 'IncludingPassingDiagnostics', true);
 runner.addPlugin(plugin);
 
-runner.addPlugin(CodeCoveragePlugin.forFolder(fullfile(src_folder, '+lib')));
+runner.addPlugin(CodeCoveragePlugin.forFolder(src_folder));
 results = runner.run(testsuite(unit_test_folder));
 
 disp(results);
