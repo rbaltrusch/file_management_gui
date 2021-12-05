@@ -18,7 +18,7 @@ runner = testrunner;
 plugin = TestReportPlugin.producingHTML(report_folder, 'IncludingPassingDiagnostics', true);
 runner.addPlugin(plugin);
 
-runner.addPlugin(CodeCoveragePlugin.forFolder(src_folder));
+runner.addPlugin(CodeCoveragePlugin.forFolder(src_folder, 'IncludingSubFolders', true));
 results = runner.run(testsuite(unit_test_folder));
 
 disp(results);
