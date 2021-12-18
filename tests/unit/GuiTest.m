@@ -55,6 +55,16 @@ classdef GuiTest < matlab.uitest.TestCase
             widget = test_case.gui.widgets('dest_folder');
             widget.Value = test_case.destination_folder;
             widget.ValueChangedFcn(widget, 0);
+
+            %Disable test if no display is available (e.g. on CI/CD machine)
+            try
+                %pressing the filter button has no effect
+                press(test_case, test_case.gui.widgets('filter_btn'))
+            catch ME
+                if strcmp(ME.identifier,'MATLAB:uiautomation:Driver:NoDisplay')
+                    test_case.assumeTrue(false, 'Test skipped on display-less machines');
+                end
+            end
         end
     end
 
@@ -85,7 +95,7 @@ classdef GuiTest < matlab.uitest.TestCase
             test_case.verifyEqual(length(test_case.gui.widgets('table').Data), test_case.test_folder_length);
         end
 
-        function test_run_without_filter(test_case)
+        function test_run(test_case)
             press(test_case, test_case.gui.widgets('run_btn'));
             files = lib.filter_files(test_case.destination_folder);
             test_case.verifyEqual(length(files), test_case.test_folder_total_length);
