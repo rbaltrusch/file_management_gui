@@ -24,6 +24,8 @@ cd tests
 run_tests
 ```
 
+Please make sure that all tests still pass after your contribution. If code changes are implemented on your branch, please also commit new tests or update existing tests, if applicable.
+
 ### Linter
 
 To run the linter on all m-files in the repository, run the following commands in MATLAB:
@@ -31,8 +33,6 @@ To run the linter on all m-files in the repository, run the following commands i
 cd tests
 lint_files
 ```
-
-Please make sure that all tests still pass after your contribution. If code changes are implemented on your branch, please also commit new tests or update existing tests, if applicable.
 
 ### Github Actions
 
