@@ -25,8 +25,12 @@ Open and run [gui.m](https://github.com/rbaltrusch/file_management_gui/blob/main
 
 Detailed information on each GUI widget may be found in the gui documentation directly in the [gui source code](https://github.com/rbaltrusch/file_management_gui/blob/main/src/gui.m) or in the MATLAB command line using:
 ```MATLAB
-help gui
+help gui.Gui
 ```
+
+## Contributions
+
+To contribute to this repository, please read the [contribution guidelines](CONTRIBUTING.md).
 
 ## MATLAB Version
 
