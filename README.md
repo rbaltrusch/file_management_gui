@@ -1,3 +1,5 @@
+[![Run tests](https://github.com/rbaltrusch/file_management_gui/actions/workflows/run_tests.yml/badge.svg)](https://github.com/rbaltrusch/file_management_gui/actions/workflows/run_tests.yml)
+[![Run linter](https://github.com/rbaltrusch/file_management_gui/actions/workflows/run_linter.yml/badge.svg)](https://github.com/rbaltrusch/file_management_gui/actions/workflows/run_linter.yml)
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 
 # File management GUI
