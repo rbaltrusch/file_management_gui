@@ -8,7 +8,7 @@ reviewers: ''
 
 ---
 
-- Make sure all tests pass before submitting your pull request.
+- Make sure all tests (including the linter) pass before submitting your pull request.
 - Make sure all Github Actions workflows that were passing before your changes are still passing.
 - Reference the issue that this pull request is fixing.
 - (Optionally) mention any people involved in the discussion of the issue.

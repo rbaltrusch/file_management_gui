@@ -17,10 +17,19 @@ git clone https://github.com/rbaltrusch/file_management_gui
 
 ### Tests
 
-To run all tests, run the following commands:
+To run all tests, run the following commands in MATLAB:
+
 ```
 cd tests
 run_tests
+```
+
+### Linter
+
+To run the linter on all m-files in the repository, run the following commands in MATLAB:
+```
+cd tests
+lint_files
 ```
 
 Please make sure that all tests still pass after your contribution. If code changes are implemented on your branch, please also commit new tests or update existing tests, if applicable.

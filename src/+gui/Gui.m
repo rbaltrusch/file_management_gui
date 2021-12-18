@@ -221,7 +221,7 @@ classdef Gui < handle
                         'mode', mode);
                 end
                 obj.emit_info('Successfully ran the selected function');
-            catch ME
+            catch
                 obj.emit_warning('EB3: An error occured while running the selected function');
             end
         end

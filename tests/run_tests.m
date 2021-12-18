@@ -7,6 +7,9 @@
 %Date: 26/11/2021
 
 function results = run_tests(varargin)
+import matlab.unittest.plugins.TestReportPlugin
+import matlab.unittest.plugins.CodeCoveragePlugin
+
 if nargin
     generate_report = ~strcmp(varargin{1},'noReport');
 else
@@ -17,8 +20,6 @@ report_folder = fullfile('reports', 'unit');
 unit_test_folder = fullfile(fileparts(mfilename('fullpath')), 'unit');
 
 if generate_report
-    import matlab.unittest.plugins.TestReportPlugin
-    import matlab.unittest.plugins.CodeCoveragePlugin
     src_folder = fullfile(unit_test_folder, '..', '..', 'src');
     if ~isfolder('reports')
         mkdir('reports');
