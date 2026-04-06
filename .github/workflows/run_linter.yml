@@ -10,6 +10,6 @@ jobs:
       - name: Set up MATLAB
         uses: matlab-actions/setup-matlab@v3
       - name: Run linter
-        uses: matlab-actions/run-command@v1
+        uses: matlab-actions/run-command@v3
         with:
           command: addpath('tests'), lint_files();
